@@ -1,0 +1,102 @@
+html{
+    height: 100%;
+}
+
+body{
+    align-items: center;
+    background-color: rgb(50, 50, 50);
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+}
+
+#border{
+    align-items: center;
+    background-color: #755e40;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 680px;
+    justify-content: center;
+    width: 680px;
+}
+
+#inner_coord{
+    bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    width: 640px;
+}
+
+.inn_coord{
+    color: #EED09D;
+    text-align: center;
+}
+.inn_coord{
+    width: 80px;
+}
+
+#table{
+    display: flex;
+    flex-direction: row;
+
+}
+
+#side{
+    left: 0px;
+    padding-right: 5px;
+    width: 10px;
+}
+
+#side_coord{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.s_coord{
+    align-items: center;
+    color:#EED09D;
+    display: flex;
+    font-size: 17px;
+    height: 80px;
+}
+
+#grid_table{
+    background-color: #EED09D;
+    border-radius: 1px;
+    display: grid;
+    grid-template-columns: repeat(8,80px);
+    grid-template-rows: repeat(8,80px);
+    height: 640px;
+    width: 640px;
+}
+
+.dark_box{
+    background-color: #987B54;
+}
+
+.light_box{
+    background-color: #EED09D;
+}
+
+.mov_box{
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 100%;
+    width: 100%;
+}
+
+.pieza{
+    height: 80px;
+    position: absolute;
+    width: 80px;
+}
+
+.cruz{
+    height: 80px;
+    position: absolute;
+    width: 80px;
+    
+}

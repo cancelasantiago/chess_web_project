@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script>src="/table.js"</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <span>
+        
+    </span>
+    <div id="border">
+        <div id = "table">
+            <div id = "side">
+                <div id = "side_coord">
+                    <script>
+                        var targetDiv = document.getElementById('side_coord');
+                        var sd_coord;
+                        for ( var i = 1; i<9; i+=1){
+                            sd_coord = i.toString();
+                            targetDiv.innerHTML += '<div class = "s_coord">'+sd_coord+'</div>';
+                        }
+                    </script>
+                </div>
+            </div>
+            <div id="grid_table">
+                <script src="table.js"></script>
+                <script>
+                    //jQuery.getScript("table.js");
+                    var targetDiv = document.getElementById('grid_table');
+                    var cambia = false;
+                    var posy = 8; //numeros
+                    var posx = 0; //letras
+                    for (var i = 0; i<64; i+=1){
+                        cambia = !cambia;
+                        if (i%8 == 0){
+                            cambia=!cambia;
+                            posy-=1;
+                            posx = 0;
+                        }
+                        if (cambia){
+                            targetDiv.innerHTML += '<div id = box_'+posx+'_'+posy+' class="dark_box" ></div>';
+                            cargar_tabla(table, 'box_'+posx+'_'+posy);
+                            posx+=1;
+                        }
+                        else{
+                            targetDiv.innerHTML += '<div id = box_'+posx+'_'+posy+' class="light_box"></div>';
+                            cargar_tabla(table, 'box_'+posx+'_'+posy);
+                            posx+=1;
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+        <div id = "inner_coord">
+            <script>
+                var targetDiv = document.getElementById('inner_coord');
+                var cadena = "ABCDEFGH"
+                for (var i = 0; i<8; i+=1){
+                    inn_coord = cadena.charAt(i);
+                    targetDiv.innerHTML += '<div class = "inn_coord">'+ inn_coord + '</div>';
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
