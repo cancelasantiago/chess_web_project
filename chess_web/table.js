@@ -238,8 +238,8 @@ function set_table_cruces(posx_cruz, posy_cruz, posx_ficha, posy_ficha){
             var div_objetivo = document.getElementById(id_div); //div en donde voy a colocar la cruz
             
             //creo la imagen de la cruz y la coloco en el div
-            var img_cruz = document.createElement("img");
-            img_cruz.setAttribute("src",'Images/Cruz.png');
+            var img_cruz = document.createElement("div");
+            //img_cruz.setAttribute("src",'Images/Cruz.png');
             img_cruz.setAttribute("id", "cruz_"+posx_cruz+"_"+posy_cruz);
             img_cruz.setAttribute("class", "cruz")
             img_cruz.setAttribute("onclick", "comer("+posx_ficha+","+posy_ficha+","+posx_cruz+","+posy_cruz+")");

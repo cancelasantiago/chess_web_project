@@ -75,17 +75,25 @@ body{
 }
 
 .dark_box{
+    align-items: center;
+    display: flex;
     background-color: #987B54;
+    justify-content: center;
 }
 
 .light_box{
+    align-items: center;
+    display: flex;
     background-color: #EED09D;
+    justify-content: center;
 }
 
 .mov_box{
-    background-color: rgba(255, 255, 255, 0.3);
-    height: 100%;
-    width: 100%;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 100%;
+    height: 50%;
+    width: 50%;
 }
 
 .pieza{
@@ -95,6 +103,7 @@ body{
 }
 
 .cruz{
+    background-color: rgba(255, 0, 0, 0.3);
     height: 80px;
     position: absolute;
     width: 80px;
