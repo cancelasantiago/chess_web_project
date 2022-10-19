@@ -13,10 +13,10 @@ class Torre{
         this.pos = [posy, posx];
         this.primer_mov = true;
         if (this.color == 'blanco'){
-            this.img = '/Images/Torre.png'
+            this.img = 'Images/Torre.png'
         }
         else{
-            this.img = '/Images/TorreNegra.png'
+            this.img = 'Images/TorreNegra.png'
         }
     }
 }
@@ -26,10 +26,10 @@ class Caballo{
         this.color = color;
         this.pos = [posy, posx];
         if (this.color == 'blanco'){
-            this.img = '/Images/Caballo.png'
+            this.img = 'Images/Caballo.png'
         }
         else{
-            this.img = '/Images/CaballoNegro.png'
+            this.img = 'Images/CaballoNegro.png'
         }
     }
 }
@@ -39,10 +39,10 @@ class Alfil{
         this.color = color;
         this.pos = [posy, posx];
         if (this.color == 'blanco'){
-            this.img = '/Images/Alfil.png'
+            this.img = 'Images/Alfil.png'
         }
         else{
-            this.img = '/Images/AlfilNegro.png'
+            this.img = 'Images/AlfilNegro.png'
         }
     }
 }
@@ -52,10 +52,10 @@ class Queen{
         this.color = color;
         this.pos = [posy, posx];
         if (this.color == 'blanco'){
-            this.img = '/Images/Reina.png'
+            this.img = 'Images/Reina.png'
         }
         else{
-            this.img = '/Images/ReinaNegra.png'
+            this.img = 'Images/ReinaNegra.png'
         }
     }
 }
@@ -66,11 +66,12 @@ class Rey{
         this.pos = [posy, posx];
         this.primer_mov = true;
         if (this.color == 'blanco'){
-            this.img = '/Images/Rey.png'
+            this.img = 'Images/Rey.png'
         }
         else{
-            this.img = '/Images/ReyNegro.png'
+            this.img = 'Images/ReyNegro.png'
         }
+        this.check = false;
     }
 }
 class Peon{
@@ -81,10 +82,10 @@ class Peon{
         this.primer_mov = true;
         
         if (this.color == 'blanco'){
-            this.img = '/Images/Peon.png'
+            this.img = 'Images/Peon.png'
         }
         else{
-            this.img = '/Images/PeonNegro.png'
+            this.img = 'Images/PeonNegro.png'
         }
     }
 }
@@ -215,7 +216,7 @@ function posicionar_ficha(ficha, posx, posy){
 
     //agrego a la tabla de fichas a la pieza en la casilla destino y la saco de la casilla origen
     table[posy][posx] = table[ficha.pos[0]][ficha.pos[1]];
-    table[posy][posx].primer_mov = false; //saco el primer movimiento del peon, torre o rey para que no puedan moverse dos lugares o hacer enrroque
+    table[posy][posx].primer_mov = false; //saco el primer movimiento del peon, torre o rey para que no puedan moverse dos lugares o hacer enroque
     table[posy][posx].pos = [posy,posx];
 
     table[aux_y][aux_x] = 0;
@@ -231,14 +232,14 @@ function set_table_cruces(posx_cruz, posy_cruz, posx_ficha, posy_ficha){
     if ((table[posy_cruz][posx_cruz]!=0)){
         var ficha = table[posy_ficha][posx_ficha]; //obtengo la ficha que soy
         var ficha_a_comer = table[posy_cruz][posx_cruz]; //obtengo la ficha a comer
-        if ((ficha.color == 'blanco') && (ficha_a_comer.color == 'negro')){ //si son de colores opuestos tengo permitido comer
+        if (((ficha.color == 'blanco') && (ficha_a_comer.color == 'negro'))||((ficha.color == 'negro') && (ficha_a_comer.color == 'blanco'))){ //si son de colores opuestos tengo permitido comer
             table_cruces[posx_cruz][posy_cruz] = 1;
             var id_div = 'box_'+posx_cruz+'_'+posy_cruz; //id del div en donde voy a colocar la cruz
             var div_objetivo = document.getElementById(id_div); //div en donde voy a colocar la cruz
             
             //creo la imagen de la cruz y la coloco en el div
             var img_cruz = document.createElement("img");
-            img_cruz.setAttribute("src",'/Images/Cruz.png');
+            img_cruz.setAttribute("src",'Images/Cruz.png');
             img_cruz.setAttribute("id", "cruz_"+posx_cruz+"_"+posy_cruz);
             img_cruz.setAttribute("class", "cruz")
             img_cruz.setAttribute("onclick", "comer("+posx_ficha+","+posy_ficha+","+posx_cruz+","+posy_cruz+")");
@@ -543,7 +544,7 @@ function casilleros(ficha){
             break;
             case 'Rey':
                 if (ficha.color == 'blanco'){
-                    //enrroque
+                    //enroque
                     if((ficha.primer_mov == true) && (table[0][0]!=0) && (table[0][0].constructor.name == 'Torre') && (table[0][0].primer_mov == true)){
                         if ((table[0][1] == 0) && (table[0][2] == 0) && (table[0][3] == 0)){
                             ret.push([1, 0], [2, 0]);
@@ -645,20 +646,16 @@ function casilleros(ficha){
                         //elegir pieza
                     }
                     //para comer fichas
-                    if (posx-1>=0 && posy+1<8){
-                        if (table[posy+1][posx+1] != 0){
-                            var ficha_a_comer = table[posy+1][posx+1];
-                            if (ficha_a_comer.color == 'negro'){
-                                //ret.push([posx+1, posy+1]);
-                                set_table_cruces(posx+1, posy+1, posx, posy)
-                            }
+                    if (posx+1<8 && posy+1<8 && table[posy+1][posx+1] != 0){
+                        var ficha_a_comer = table[posy+1][posx+1];
+                        if (ficha_a_comer.color == 'negro'){
+                            set_table_cruces(posx+1, posy+1, posx, posy);
                         }
-                        if (table[posy+1][posx-1] != 0){
-                            var ficha_a_comer = table[posy+1][posx-1];
-                            if (ficha_a_comer.color == 'negro'){
-                                //ret.push([posx-1, posy+1]);
-                                set_table_cruces(posx-1, posy+1, posx, posy)
-                            }
+                    }    
+                    if (posx-1>=0 && posy+1<8 && table[posy+1][posx-1] != 0){
+                        var ficha_a_comer = table[posy+1][posx-1];
+                        if (ficha_a_comer.color == 'negro'){
+                            set_table_cruces(posx-1, posy+1, posx, posy)
                         }
                     }
                     return ret;
@@ -683,6 +680,19 @@ function casilleros(ficha){
                     else if ((posy-1 == 0)){
                         //elegir pieza
                     }
+                    //para comer fichas
+                    if (posx+1<8 && posy-1>=0 && table[posy-1][posx+1] != 0){
+                        var ficha_a_comer = table[posy-1][posx+1];
+                        if (ficha_a_comer.color == 'blanco'){
+                            set_table_cruces(posx+1, posy-1, posx, posy);
+                        }
+                    }    
+                    if (posx-1>=0 && posy-1>=0 && table[posy-1][posx-1] != 0){
+                        var ficha_a_comer = table[posy-1][posx-1];
+                        if (ficha_a_comer.color == 'blanco'){
+                            set_table_cruces(posx-1, posy-1, posx, posy)
+                        }
+                    }
                 }
             break;
         }
@@ -703,4 +713,17 @@ function posibles_movs(posx, posy){
     for (var i = 0; i<aux.length; i++){
         set_table_mov(aux[i][0], aux[i][1], posx, posy);
     }
+}
+
+function check(){
+
+}
+function checkmate(){
+
+}
+function crown(){
+
+}
+function defend_check(){
+    
 }
